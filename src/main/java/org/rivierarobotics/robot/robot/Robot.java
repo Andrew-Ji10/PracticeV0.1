@@ -24,7 +24,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import org.rivierarobotics.robot.commands.DriveControl;
+import org.rivierarobotics.robot.commands.TurretControl;
 import org.rivierarobotics.robot.subsystems.DriveTrain;
+import org.rivierarobotics.robot.subsystems.Turret;
 
 import java.lang.module.ModuleDescriptor;
 
@@ -33,11 +35,15 @@ public class Robot extends TimedRobot {
     private final DriveTrain driveTrain;
     private final Joystick rightJoy;
     private final Joystick leftJoy;
+    private final Joystick turretJoy;
+    private final Turret turret;
 
     public Robot () {
         this.driveTrain = new DriveTrain();
+        this.turret = new Turret();
         this.rightJoy = new Joystick(0);
         this.leftJoy = new Joystick(1);
+        this.turretJoy = new Joystick(2);
     }
 
 
@@ -45,6 +51,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         new DriveControl(rightJoy, leftJoy, driveTrain).schedule();
+        new TurretControl(turret, turretJoy);
     }
 
 
