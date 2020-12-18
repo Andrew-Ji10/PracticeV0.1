@@ -28,8 +28,6 @@ import org.rivierarobotics.robot.commands.TurretControl;
 import org.rivierarobotics.robot.subsystems.DriveTrain;
 import org.rivierarobotics.robot.subsystems.Turret;
 
-import java.lang.module.ModuleDescriptor;
-
 public class Robot extends TimedRobot {
 
     private final DriveTrain driveTrain;
@@ -47,12 +45,14 @@ public class Robot extends TimedRobot {
     }
 
 
-
     @Override
-    public void robotInit() {
+    public void teleopInit() {
         new DriveControl(rightJoy, leftJoy, driveTrain).schedule();
-        new TurretControl(turret, turretJoy);
+        new TurretControl(turret, turretJoy).schedule();
     }
 
-
+    @Override
+    public void teleopPeriodic() {
+        CommandScheduler.getInstance().run();
+    }
 }
