@@ -23,8 +23,10 @@ package org.rivierarobotics.robot.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import org.rivierarobotics.robot.commands.ArmControl;
 import org.rivierarobotics.robot.commands.DriveControl;
 import org.rivierarobotics.robot.commands.TurretControl;
+import org.rivierarobotics.robot.subsystems.Arm;
 import org.rivierarobotics.robot.subsystems.DriveTrain;
 import org.rivierarobotics.robot.subsystems.Turret;
 
@@ -35,10 +37,12 @@ public class Robot extends TimedRobot {
     private final Joystick leftJoy;
     private final Joystick turretJoy;
     private final Turret turret;
+    private final Arm arm;
 
     public Robot () {
         this.driveTrain = new DriveTrain();
         this.turret = new Turret();
+        this.arm = new Arm();
         this.rightJoy = new Joystick(0);
         this.leftJoy = new Joystick(1);
         this.turretJoy = new Joystick(2);
@@ -49,6 +53,7 @@ public class Robot extends TimedRobot {
     public void teleopInit() {
         new DriveControl(rightJoy, leftJoy, driveTrain).schedule();
         new TurretControl(turret, turretJoy).schedule();
+        new ArmControl(arm, turretJoy);
     }
 
     @Override

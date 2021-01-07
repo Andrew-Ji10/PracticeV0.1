@@ -1,6 +1,7 @@
 package org.rivierarobotics.robot.subsystems;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
+import org.opencv.core.Mat;
 
 public class Gyro {
     private final PigeonIMU gyro;
@@ -18,4 +19,8 @@ public class Gyro {
     public double getYaw(){
         return Math.toRadians(getYPR()[0]);
     }
+
+    public double getPitch(){ return  Math.toRadians(getYPR()[1]);}
+
+    public double getRoll(){ return Math.toRadians(getYPR()[2]);}
 }
